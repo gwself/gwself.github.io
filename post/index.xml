@@ -6,14 +6,28 @@
     <description>Recent content in Posts on gwself&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 22 Oct 2019 18:46:47 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 20:30:00 +0800</lastBuildDate>
     <atom:link href="https://gwself.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>title</title>
+      <title>当 jOOQ 遇上 PostGIS:jooq-postgis 诞生记</title>
+      <link>https://gwself.github.io/post/jooq-postgis-intro/</link>
+      <pubDate>Tue, 06 Oct 2026 20:30:00 +0800</pubDate>
+      <guid>https://gwself.github.io/post/jooq-postgis-intro/</guid>
+      <description>工作中需要在 jOOQ 里映射 PostGIS 地理位置字段,于是写了 jooq-postgis:纯 JTS、零 GeoTools 的类型安全空间绑定。记录问题、方案与用法。</description>
+    </item>
+    <item>
+      <title>small-rpc 2.0:基于 Netty + Hessian 的轻量级 RPC 框架</title>
+      <link>https://gwself.github.io/post/small-rpc-intro/</link>
+      <pubDate>Tue, 06 Oct 2026 20:00:00 +0800</pubDate>
+      <guid>https://gwself.github.io/post/small-rpc-intro/</guid>
+      <description>介绍我写的轻量级 Java RPC 框架 small-rpc:微内核架构、自研 SPI、注册中心订阅推送与缓存降级,以及快速上手示例。</description>
+    </item>
+    <item>
+      <title>你好,我是高云峰(gwself)</title>
       <link>https://gwself.github.io/post/title_of_the_post/</link>
-      <pubDate>Tue, 22 Oct 2019 18:46:47 +0800</pubDate>
+      <pubDate>Tue, 06 Oct 2026 12:00:00 +0800</pubDate>
       <guid>https://gwself.github.io/post/title_of_the_post/</guid>
-      <description>The summary content</description>
+      <description>个人介绍:Java 后端工程师,关注 small-rpc、jooq-postgis,也学 Go / Python / Rust,乐于提开源 PR。</description>
     </item>
   </channel>
 </rss>
