@@ -5,6 +5,30 @@
   <meta name="viewport" content="width=device-width">
   <title>给 openobserve 提的三个 PR:都是边界条件惹的祸</title>
   <meta name="description" content="使用 openobserve 时先后遇到 Grafana 直方图不渲染、_around 接口 size=1 返回 2000 行、quantile 遇 +Inf 返回 NaN 三个问题,读 Rust 源码定位后各提交一个 PR(#15144、#15143、#15142),记录完整过程。" />
+  <meta name="robots" content="index,follow" />
+  <meta name="keywords" content="Rust,openobserve,可观测性,Grafana,直方图,quantile,NaN,边界条件,开源 PR" />
+  <link rel="canonical" href="https://gwself.github.io/post/openobserve-three-prs/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="高云峰的博客" />
+  <meta property="og:title" content="给 openobserve 提的三个 PR:都是边界条件惹的祸" />
+  <meta property="og:description" content="三个问题、三次读 Rust 源码、三个 PR,记录完整过程与体会。" />
+  <meta property="og:url" content="https://gwself.github.io/post/openobserve-three-prs/" />
+  <meta property="og:image" content="https://gwself.github.io/images/avatar.png" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="article:published_time" content="2026-10-06" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "给 openobserve 提的三个 PR:都是边界条件惹的祸",
+    "url": "https://gwself.github.io/post/openobserve-three-prs/",
+    "datePublished": "2026-10-06",
+    "dateModified": "2026-10-06",
+    "inLanguage": "zh-CN",
+    "author": { "@type": "Person", "name": "高云峰", "url": "https://gwself.github.io/" },
+    "mainEntityOfPage": "https://gwself.github.io/post/openobserve-three-prs/"
+  }
+  </script>
   <link rel="icon" href="../../images/github.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="../../css/main.css">

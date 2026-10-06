@@ -1,0 +1,13 @@
+# https://gwself.github.io
+User-agent: *
+Allow: /
+
+# Explicit welcome for major crawlers
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: Baiduspider
+Allow: /
+
+Sitemap: https://gwself.github.io/sitemap.xml
