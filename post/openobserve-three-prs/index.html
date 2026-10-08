@@ -71,7 +71,7 @@
   </div>
 
   <article class="article-body wrap">
-    <p><a href="https://github.com/openobserve/openobserve" target="_blank" rel="noopener">openobserve</a> 是一个 Rust 写的开源可观测性平台(日志、指标、追踪一体),性能好、资源占用低,我在用它承接日志与指标的过程中读了不少源码,前后定位了三个问题、提了三个 PR:<a href="https://github.com/openobserve/openobserve/pull/15144" target="_blank" rel="noopener">#15144</a>、<a href="https://github.com/openobserve/openobserve/pull/15143" target="_blank" rel="noopener">#15143</a>、<a href="https://github.com/openobserve/openobserve/pull/15142" target="_blank" rel="noopener">#15142</a>(截至写作时都在评审中)。写完回顾才发现,三个问题有一个共同的名字:<strong>边界条件</strong>。这篇文章把三个问题的完整过程记录下来。</p>
+    <p><a href="https://github.com/openobserve/openobserve" target="_blank" rel="noopener">openobserve</a> 是一个 Rust 写的开源可观测性平台(日志、指标、追踪一体),性能好、资源占用低,我在用它承接日志与指标的过程中读了不少源码,前后定位了三个问题、提了三个 PR:<a href="https://github.com/openobserve/openobserve/pull/15144" target="_blank" rel="noopener">#15144</a>、<a href="https://github.com/openobserve/openobserve/pull/15143" target="_blank" rel="noopener">#15143</a>、<a href="https://github.com/openobserve/openobserve/pull/15142" target="_blank" rel="noopener">#15142</a>(两个已合并,一个经维护者说明后撤回)。写完回顾才发现,三个问题有一个共同的名字:<strong>边界条件</strong>。这篇文章把三个问题的完整过程记录下来。</p>
 
     <h2>问题一:Grafana 直方图不渲染(#15144)</h2>
 
@@ -88,6 +88,7 @@ FROM t GROUP BY x ORDER BY x LIMIT 100000</code></pre>
     <p>规则改成:只有<strong>不使用</strong> <code>histogram(...)</code> 的查询才因 <code>LIMIT</code> 被否决。实现上是一个小访问器(<code>HistogramDetector</code>),在 AST 里检查是否存在名为 <code>histogram</code> 的 <code>Expr::Function</code>。这样既救回了 Grafana 插件的查询形态,又保住了原有意图——distinct/CTE/join/union/普通 LIMIT 仍然不是直方图,现有测试一个没动。</p>
     <p>验证:Grafana 插件形态和 5 分钟间隔变体保持 eligible,<code>SELECT * FROM t LIMIT 100</code> 依旧 ineligible;<code>cargo test -p config --lib</code> 3857 个测试全过。改动 1 个文件,+51 −2。</p>
     <p>→ <a href="https://github.com/openobserve/openobserve/pull/15144" target="_blank" rel="noopener">PR #15144</a></p>
+    <p><strong>结果:撤回。</strong>维护者说明,<code>LIMIT</code> 在这里被排除是<strong>有意为之</strong>——<code>is_histogram_eligible</code> 的含义不是「这条查询是不是直方图」,而是「Logs 页能否为这条查询绘制时间分布图」;那张图靠把查询重写为 <code>SELECT histogram(_timestamp), count(*) …</code> 得到(见 <code>convert_to_histogram_query</code>),所以它与 DISTINCT/CTE/JOIN/UNION 一样,排除 <code>LIMIT</code> 才是正确契约。一个反例一锤定音:<code>SELECT histogram(_timestamp) AS x, * FROM t LIMIT 10</code>——它带 histogram,却无法被重写成时间分布图。明白这一点后,我主动关闭了这个 PR。</p>
 
     <h2>问题二:<code>_around</code> 传 <code>size=1</code>,却返回 2000 行(#15143)</h2>
 
