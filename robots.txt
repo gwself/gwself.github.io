@@ -1,4 +1,4 @@
-# https://gwself.github.io
+# https://blog.yunitytech.top
 User-agent: *
 Allow: /
 
@@ -10,4 +10,4 @@ Allow: /
 User-agent: Baiduspider
 Allow: /
 
-Sitemap: https://gwself.github.io/sitemap.xml
+Sitemap: https://blog.yunitytech.top/sitemap.xml
